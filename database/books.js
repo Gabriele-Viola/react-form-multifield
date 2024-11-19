@@ -4,12 +4,14 @@ export default [
         title: "Il Signore degli Anelli",
         author: "J.R.R. Tolkien",
         state: 'Stock',
+        tags: ['Fantasy', 'BestSellers']
     },
     {
         id: 2,
         title: "1984",
         author: "George Orwell",
         state: 'on Loan',
+        tags: ['BestSellers']
 
     },
 
@@ -18,6 +20,7 @@ export default [
         title: "Orgoglio e Pregiudizio",
         author: "Jane Austen",
         state: 'Stock',
+        tags: ['Commedia', 'BestSellers']
 
     },
 
@@ -26,6 +29,7 @@ export default [
         title: "Il Grande Gatsby",
         author: "F. Scott Fitzgerald",
         state: 'on Loan',
+        tags: ['Commedia']
 
     },
 
@@ -34,6 +38,7 @@ export default [
         title: "Moby Dick",
         author: "Herman Melville",
         state: 'Stock',
+        tags: ['Fantasia', 'Avventura']
 
     }
 ];

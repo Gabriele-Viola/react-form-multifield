@@ -13,6 +13,7 @@ function App() {
   const [newBook, setNewBook] = useState('')
   const [filterStore, setFilterStore] = useState([])
   const [search, setSearch] = useState('')
+  const [formData, setFormdata] = useState(resetForm)
   useEffect(() => {
     const filterStore = books.filter((book => book.title.toLowerCase().includes(search.toLowerCase())))
     setFilterStore(filterStore)
@@ -20,7 +21,6 @@ function App() {
 
   }, [books, search])
 
-  const [formData, setFormdata] = useState(resetForm)
 
 
 
@@ -31,13 +31,19 @@ function App() {
       ...formData
     }
     console.log(newBook);
+    setBooks([
+      newBook,
+      ...books
+    ])
 
-    const newBooks = [newBook, ...books]
-    setBooks(newBooks)
     setNewBook('')
   }
   function handleForm(e) {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    const value = e.target.type === 'checkbox' ? e.target.checked && e.target.id : e.target.value
+    console.log(e.target.checked, e.target.value, e.target.id);
+    console.log(value);
+
+
     setFormdata({
       ...formData,
       [e.target.name]: value
@@ -83,7 +89,22 @@ function App() {
               <label htmlFor="author">Author</label>
               <input type="text" name='author' id='author' value={formData.author} onChange={handleForm} placeholder='author' required />
               <label htmlFor="state">State in Stock</label>
-              <input type="checkbox" name='state' id='state' value={formData.state} onChange={handleForm} />
+              <select name="state" id="state" value={formData.author} onChange={handleForm}>
+                <option value="stock">Stock</option>
+                <option value="Loan">Loan</option>
+                <option value="notStock">not Stock</option>
+              </select>
+              <div className="tags">
+                <label htmlFor="tags">Commedia</label>
+                <input type="checkbox" name='tags' id='commedia' value={formData.tags} onChange={handleForm} />
+                <label htmlFor="tags">bestesellers</label>
+                <input type="checkbox" name='tags' id='BestSellers' value={formData.tags} onChange={handleForm} />
+                <label htmlFor="tags">Fantasia</label>
+                <input type="checkbox" name='tags' id='Fantasia' value={formData.tags} onChange={handleForm} />
+                <label htmlFor="tags">Avventura</label>
+                <input type="checkbox" name='tags' id='Avventura' value={formData.tags} onChange={handleForm} />
+
+              </div>
 
               <button type='submit'>Save</button>
             </div>
@@ -95,7 +116,9 @@ function App() {
         <ul>
           {filterStore.map((book, index) => (
             <li key={book.id}>
-              <span>{book.title}</span>
+              <div>{book.title}</div>
+              <div>{book.state}</div>
+
               <button data-index={book.id} onClick={modifyBook}>Modify</button>
               <button data-index={book.id} onClick={deleteBook}>Delete</button>
 
