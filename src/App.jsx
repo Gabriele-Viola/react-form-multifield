@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import store from '../database/books.js'
 import './App.css'
 
@@ -11,21 +11,18 @@ const resetForm = {
 function App() {
   const [books, setBooks] = useState(store)
   const [newBook, setNewBook] = useState('')
-  const [title, setTitle] = useState('title')
-  const [author, setAuthor] = useState('author')
-  const [state, setState] = useState('Stock')
+  const [filterStore, setFilterStore] = useState([])
+  const [search, setSearch] = useState('')
+  useEffect(() => {
+    const filterStore = books.filter((book => book.title.toLowerCase().includes(search.toLowerCase())))
+    setFilterStore(filterStore)
+
+
+  }, [books, search])
 
   const [formData, setFormdata] = useState(resetForm)
 
-  // function heandlerTitle(e) {
-  //   setTitle(e.target.value)
-  // }
-  // function heandlerAuthor(e) {
-  //   setAuthor(e.target.value)
-  // }
-  // function heandlerState(e) {
-  //   setState(e.target.value)
-  // }
+
 
   function addBook(e) {
     e.preventDefault()
@@ -82,11 +79,11 @@ function App() {
             </div>
             <div className="inputs">
               <label htmlFor="title">Title</label>
-              <input type="text" name='title' id='title' value={formData.title} onChange={formData.title} placeholder='title' required />
+              <input type="text" name='title' id='title' value={formData.title} onChange={handleForm} placeholder='title' required />
               <label htmlFor="author">Author</label>
-              <input type="text" name='author' id='author' value={formData.author} onChange={formData.author} placeholder='author' required />
+              <input type="text" name='author' id='author' value={formData.author} onChange={handleForm} placeholder='author' required />
               <label htmlFor="state">State in Stock</label>
-              <input type="checkbox" name='state' id='state' value={formData.state} onChange={formData.state} />
+              <input type="checkbox" name='state' id='state' value={formData.state} onChange={handleForm} />
 
               <button type='submit'>Save</button>
             </div>
@@ -94,9 +91,9 @@ function App() {
           </form>
 
         </div>
-
+        <input type="search" placeholder='Search' value={search} onChange={e => setSearch(e.target.value)} />
         <ul>
-          {books.map((book, index) => (
+          {filterStore.map((book, index) => (
             <li key={book.id}>
               <span>{book.title}</span>
               <button data-index={book.id} onClick={modifyBook}>Modify</button>
