@@ -6,7 +6,7 @@ const resetForm = {
   title: '',
   author: '',
   state: 'off stock',
-  tags: []
+  tags: ['BestSeller', 'Commedia', 'Fantasy', 'Avventura',]
 }
 
 function App() {
@@ -39,14 +39,12 @@ function App() {
 
     setNewBook('')
   }
+  const tags = []
   function handleForm(e) {
-    const tags = []
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    const value = e.target.type === 'checkbox' ? e.target.checked ? formData.tags : formData.tags.filter(tag => tag !== e.target.id.toLowerCase()) : e.target.value
 
-    console.log(e.target.checked, e.target.value, e.target.id);
+
     console.log(value);
-    console.log(tags);
-
 
 
     setFormdata({
@@ -95,20 +93,20 @@ function App() {
               <input type="text" name='author' id='author' value={formData.author} onChange={handleForm} placeholder='author' required />
               <label htmlFor="state">State in Stock</label>
               <select name="state" id="state" value={formData.state} onChange={handleForm}>
-                <option value="">--disponibility</option>
+                <option value="notStock">not Stock</option>
                 <option value="stock">Stock</option>
                 <option value="Loan">Loan</option>
-                <option value="notStock">not Stock</option>
               </select>
               <div className="tags">
                 <label htmlFor="tags">Commedia</label>
-                <input type="checkbox" name='tags' id='commedia' value={formData.tags[0]} onChange={handleForm} />
+                <input type="checkbox" name='tags' id='commedia' value={formData.tags} onChange={handleForm} />
                 <label htmlFor="tags">bestesellers</label>
-                <input type="checkbox" name='tags' id='BestSellers' value={formData.tags[1]} onChange={handleForm} />
-                <label htmlFor="tags">Fantasia</label>
-                <input type="checkbox" name='tags' id='Fantasia' value={formData.tags[2]} onChange={handleForm} />
+                <input type="checkbox" name='tags' id='BestSellers' value={formData.tags} onChange={handleForm} />
+                <label htmlFor="tags">Fantasy</label>
+                <input type="checkbox" name='tags' id='Fantasy' value={formData.tags} onChange={handleForm} />
                 <label htmlFor="tags">Avventura</label>
-                <input type="checkbox" name='tags' id='Avventura' value={formData.tags[3]} onChange={handleForm} />
+                <input type="checkbox" name='tags' id='Avventura' value={formData.tags} onChange={handleForm} />
+
 
               </div>
 

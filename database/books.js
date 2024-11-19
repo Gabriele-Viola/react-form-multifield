@@ -38,7 +38,7 @@ export default [
         title: "Moby Dick",
         author: "Herman Melville",
         state: 'Stock',
-        tags: ['Fantasia', 'Avventura']
+        tags: ['Fantasy', 'Avventura']
 
     }
 ];
